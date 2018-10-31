@@ -1,7 +1,7 @@
-<div class="website">
-		<div class="cube"
-				 style="transform: rotateY({rotateToRight}deg);"
-				 on:click="set({ rotateToRight: rotateToRight == 0 ? -90 : 0 })">
+<!-- <svelte:window bind:innerWidth="vw"/> -->
+
+<div class="website" on:click="set({ rotateToRight: !rotateToRight })">
+		<div class="cube {rotateToRight ? 'cube-show-right' : ''}">
 				<div class="cube-face cube-front">front</div>
 				<div class="cube-face cube-right">right</div>
 				<div class="cube-face cube-back">back</div>
@@ -15,7 +15,7 @@
  export default {
 		 data() {
 				 return {
-						 rotateToRight: 0,
+						 rotateToRight: false,
 				 };
 		 }
  }
@@ -23,48 +23,51 @@
 
 <style>
  .website,
- .cube {
+ .cube,
+ .cube-face {
 		 width: 100%;
 		 height: 100%;
  }
  .website {
-		 perspective: 2000px;
- }
- .cube {
+		 perspective: 1000px;
+		 position: relative;
+		 overflow: hidden;
 		 display: flex;
 		 justify-content: center;
 		 align-items: center;
+ }
+ .cube {
 		 position: relative;
 		 transform-style: preserve-3d;
 		 transition: transform 1s;
+		 backface-visibility: hidden;
+		 transform-origin: right center;
  }
  .cube-face {
 		 position: absolute;
-		 display: block;
  }
  .cube-front {
 		 background-color: tomato;
-		 transform: rotateY(0deg) /* translateZ(100px) */;
  }
  .cube-right {
 		 background-color: yellow;
-		 transform: rotateY(90deg) /* translateZ(100px) */;
+		 transform: translate3d(0, 0, -50vw) translate3d(50vw, 0, 0) rotate3d(0, 1, 0, 90deg) ;  /* translateZ(-50vw) translateX(50vw) */
+ }
+ .cube-show-right {
+		 transform:  translate3d(-50vw, 0, 0) rotate3d(0, 1, 0, -90deg) translate3d(0, 0, 50vw); /* translateX(-50vw) rotate3d(0, 1, 0, -90deg) translateZ(50vw) */
  }
  .cube-back {
 		 background-color: orange;
-		 transform: rotateY(180deg) /* translateZ(100px) */;
  }
  .cube-left {
 		 background-color: green;
-		 transform: rotateY(-90deg) /* translateZ(100px) */;
  }
  .cube-top {
 		 background-color: blue;
-		 transform: rotateX(90deg) /* translateZ(100px) */;
  }
  .cube-bottom {
 		 background-color: pink;
-		 transform: rotateX(-90deg) /* translateZ(100px) */;
+		 transform: translateZ(-100vw) rotateY(180deg);
  }
 
 </style>
