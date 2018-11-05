@@ -49,12 +49,17 @@ table {
 
 /* User Custom CSS  */
 
-html {
+* {
+		box-sizing: border-box;
+}
+
+html,
+body {
 		width: 100vw;
 		height: 100vh;
 }
 
 body {
-		height: 100%;
-		background-color: darkgrey;
+		padding: 10px;
+		background-color: #222222;
 }

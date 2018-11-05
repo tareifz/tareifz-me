@@ -1,11 +1,40 @@
+<div id="website">
+		<div id="bar"></div>
+		{#each workspaces as workspace}
+		<Workspace data=workspace>d</Workspace>
+		{/each}
+		<div id="bar"></div>
+</div>
+
 <script>
  export default {
-		 data() {
-				 return { };
+		 components: {
+				 Workspace: `./Workspace.html`,
 		 },
+		 data() {
+				 return {
+						 workspaces: [
+								 {
+										 name: `main`,
+								 },
+						 ],
+				 };
+		 },
+		 methods: {
+				 createWorkspace(name) {
+						 return {
+								 name
+						 };
+				 }
+		 }
  }
 </script>
 
 <style>
-
+ #website {
+		 display: flex;
+		 flex-direction: column;
+		 justify-content: center;
+		 align-items: center;
+ }
 </style>
