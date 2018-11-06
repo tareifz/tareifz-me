@@ -1,21 +1,34 @@
 <div id="website">
-		<div id="bar"></div>
+		<div id="bar-top" class="bar"></div>
 		{#each workspaces as workspace}
-		<Workspace data=workspace>d</Workspace>
+		<Workspace bind:name=workspace.name
+							 bind:windows="workspace.windows"></Workspace>
 		{/each}
-		<div id="bar"></div>
+		<div id="bar-bottom" class="bar"></div>
 </div>
 
 <script>
  export default {
 		 components: {
-				 Workspace: `./Workspace.html`,
+				 Workspace: './Workspace.html',
 		 },
 		 data() {
 				 return {
 						 workspaces: [
 								 {
 										 name: `main`,
+										 windows: [
+												 {
+														 top: 100,
+														 left: 0,
+														 width: 400,
+														 height: 300,
+														 title: 'about',
+														 close: true,
+														 minimize: true,
+														 maximize: true,
+												 },
+										 ],
 								 },
 						 ],
 				 };
@@ -34,7 +47,16 @@
  #website {
 		 display: flex;
 		 flex-direction: column;
-		 justify-content: center;
-		 align-items: center;
+		 height: 100%;
+ }
+
+ .bar {
+		 width: 100%;
+		 height: 30px;
+		 background-color: tomato;
+ }
+
+ #bar-bottom {
+		 align-self: end;
  }
 </style>

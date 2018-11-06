@@ -1,1 +1,46 @@
-a
+<div class="workspace">
+		{#each windows as window}
+		<Window bind:top=window.top
+						bind:left=window.left
+						bind:width=window.width
+						bind:height=window.hight
+						bind:title=window.title
+						bind:close=window.close
+						bind:minimize=window.minimize
+						bind:maximize=window.maximize></Window>
+		{/each}
+</div>
+
+<script>
+ export default {
+		 components: {
+				 Window: './Window.html',
+		 },
+		 data() {
+				 return {
+						 name: 'default',
+						 windows: [
+								 {
+										 top: 0,
+										 left: 0,
+										 width: 400,
+										 height: 300,
+										 title: 'about',
+										 close: true,
+										 minimize: true,
+										 maximize: true,
+								 },
+						 ],
+				 };
+		 },
+ }
+</script>
+
+<style>
+ .workspace {
+		 width: 100%;
+		 height: 100%;
+		 position: relative;
+		 color: white;
+ }
+</style>
