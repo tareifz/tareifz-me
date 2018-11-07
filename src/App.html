@@ -1,62 +1,64 @@
 <div id="website">
-		<div id="bar-top" class="bar"></div>
-		{#each workspaces as workspace}
-		<Workspace bind:name=workspace.name
-							 bind:windows="workspace.windows"></Workspace>
-		{/each}
-		<div id="bar-bottom" class="bar"></div>
+    <div id="bar-top" class="bar"></div>
+    {#each workspaces as workspace}
+    <Workspace bind:name=workspace.name
+               bind:windows="workspace.windows"></Workspace>
+    {/each}
+    <div id="bar-bottom" class="bar"></div>
 </div>
 
 <script>
  export default {
-		 components: {
-				 Workspace: './Workspace.html',
-		 },
-		 data() {
-				 return {
-						 workspaces: [
-								 {
-										 name: `main`,
-										 windows: [
-												 {
-														 top: 100,
-														 left: 0,
-														 width: 400,
-														 height: 300,
-														 title: 'about',
-														 close: true,
-														 minimize: true,
-														 maximize: true,
-												 },
-										 ],
-								 },
-						 ],
-				 };
-		 },
-		 methods: {
-				 createWorkspace(name) {
-						 return {
-								 name
-						 };
-				 }
-		 }
+     components: {
+         Workspace: './Workspace.html',
+     },
+     data() {
+         return {
+             workspaces: [
+                 {
+                     name: `main`,
+                     windows: [
+                         {
+                             top: 100,
+                             left: 200,
+                             width: 400,
+                             height: 300,
+                             title: 'about',
+                             close: true,
+                             minimize: true,
+                             maximize: true,
+                             windowBarBackgroundColor: 'white',
+                             windowContentBackgroundColor: '#eeeeee',
+                         },
+                     ],
+                 },
+             ],
+         };
+     },
+     methods: {
+         createWorkspace(name) {
+             return {
+                 name
+             };
+         }
+     }
  }
 </script>
 
 <style>
  #website {
-		 display: flex;
-		 flex-direction: column;
-		 height: 100%;
+     display: flex;
+     flex-direction: column;
+     height: 100%;
  }
 
  .bar {
-		 width: 100%;
-		 height: 30px;
-		 background-color: tomato;
+     width: 100%;
+     height: 30px;
+     background-color: tomato;
  }
 
  #bar-bottom {
-		 align-self: end;
+     align-self: end;
  }
 </style>

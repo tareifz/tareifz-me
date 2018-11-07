@@ -1,26 +1,96 @@
-<div class="container" style="top: {top}px; left: {left}px;">
-		sdsdsd
+<div class="window" style={styles}>
+    <div class="window-bar" style="background-color: {windowBarBackgroundColor};">
+        <div class="window-buttons">
+            <div class="close"></div>
+            <div class="minimize"></div>
+            <div class="maximize"></div>
+        </div>
+        <div class="window-title">{title}</div>
+        <div class="window-icon"></div>
+    </div>
+    <div class="content" style="background-color: {windowContentBackgroundColor};">
+        the content of the window will be displayed here.
+    </div>
 </div>
 
 <script>
  export default {
-		 data() {
-				 return {
-						 top: 0,
-						 left: 0,
-						 width: 400,
-						 height: 300,
-						 title: 'about',
-						 close: true,
-						 minimize: true,
-						 maximize: true,
-				 }
-		 }
+     data() {
+         return {
+             top: 0,
+             left: 0,
+             width: 400,
+             height: 300,
+             title: 'about',
+             close: true,
+             minimize: true,
+             maximize: true,
+             windowBarBackgroundColor: 'white',
+             windowContentBackgroundColor: '#eeeeee',
+         }
+     },
+     computed: {
+         styles: ({
+             top,
+             left,
+             width,
+             height,
+         }) =>  `top: ${top}px;
+             		left: ${left}px;
+             		width: ${width}px;
+             		height: ${height}px;`
+     }
  }
 </script>
 
 <style>
- .container {
-		 position: absolute;
+ .window,
+ .window-title,
+ .window-buttons {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .window {
+     position: absolute;
+     flex-direction: column;
+ }
+ .window-bar,
+ .content {
+     width: 100%;
+ }
+ .window-bar {
+     display: flex;
+     align-items: center;
+     position: relative;
+     height: 25px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }
+ .window-bar > div {
+     height: 100%;
+ }
+ .window-title {
+     position: absolute;
+     width: 100%;
+     pointer-events: none;
+ }
+ .window-buttons {
+     width: 60px;
+     position: absolute;
+     top: 0;
+     left: 0;
+     z-index: 3;
+ }
+ .window-icon {
+     width: 25px;
+     position: absolute;
+     top: 0;
+     right: 0;
+ }
+ .content {
+     height: 100%;
+     /* overflow-y: scroll;
+        padding: 3px; */
  }
 </style>
