@@ -1,5 +1,5 @@
 <div class="window" style={styles}>
-    <div class="window-bar">
+    <div class="window-bar" on:windowMove="set({ })">
         <div class="window-bar-buttons">
             <div class="close">
                 <svg viewBox="0 0 6.4 6.4" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +43,43 @@
              windowBarBackgroundColor: 'white',
              windowContentBackgroundColor: '#eeeeee',
          }
+     },
+     events: {
+         windowMove(node, callback) {
+             function onMouseOver() {
+                 function onMouseDown() {
+                     function onMouseMove(event) {
+                         // always move the window to the desired location
+                     }
+
+                     function onMouseUp() {
+                         // we need to check if the window inside the boundries.
+
+                         node.removeEventListener('mousemove', onMouseMove.bind(this), false);
+                         node.removeEventListener('mouseup', onMouseUp, false);
+                     }
+
+                     node.addEventListener('mousemove', onMouseMove.bind(this), false);
+                     node.addEventListener('mouseup', onMouseUp, false);
+                 }
+
+                 function onMouseOut() {
+                     node.removeEventListener('mousedown', onMouseDown.bind(this), false);
+                     node.removeEventListener('mouseout', onMouseOut, false);
+                 }
+
+                 node.addEventListener('mousedown', onMouseDown.bind(this), false);
+                 node.addEventListener('mouseout', onMouseOut, false);
+             }
+
+             node.addEventListener('mouseover', onMouseOver.bind(this), false);
+
+             return {
+                 destroy() {
+                     node.removeEventListener('mouseover', onMouseOver.bind(this), false);
+                 }
+             };
+         },
      },
      computed: {
          styles: ({
