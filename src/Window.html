@@ -46,37 +46,68 @@
      },
      events: {
          windowMove(node, callback) {
-             function onMouseOver() {
-                 function onMouseDown() {
-                     function onMouseMove(event) {
-                         // always move the window to the desired location
-                     }
+             function onMouseDown(event) {
+                 let x0 = event.clientX;
+                 let y0 = event.clientY;
 
-                     function onMouseUp() {
-                         // we need to check if the window inside the boundries.
+                 let overlay = document.createElement('div');
+                 document.body.appendChild(overlay);
+                 overlay.style.opacity = 0.0;
+                 overlay.style.height = '100%';
+                 overlay.style.position = 'absolute';
+                 overlay.style.width = '100%';
+                 overlay.style.top = '0';
+                 overlay.style.left = '0';
+                 overlay.style.zIndex = '99999999';
 
-                         node.removeEventListener('mousemove', onMouseMove.bind(this), false);
-                         node.removeEventListener('mouseup', onMouseUp, false);
-                     }
+                 function onMouseMove(event) {
+                     // always move the window to the desired location
+                     let dx = event.clientX - x0;
+                     let dy = event.clientY - y0;
+                     let {
+                         innerWidth,
+                         innerHeight,
+                     } = window;
+                     let {
+                         top,
+                         left,
+                         width,
+                         height,
+                     } = this.get();
 
-                     node.addEventListener('mousemove', onMouseMove.bind(this), false);
-                     node.addEventListener('mouseup', onMouseUp, false);
+                     left += dx;
+                     top += dy;
+                     x0 += dx;
+                     y0 += dy;
+
+                     /* if(left >= innerWidth) {
+                      *     console.log('left before: ', left)
+                      *     left = innerWidth - width;
+                      *     x0 = innerWidth;
+                      *     console.log('left after: ', left)
+                      * } */
+
+                     this.set({
+                         top,
+                         left,
+                     });
                  }
 
-                 function onMouseOut() {
-                     node.removeEventListener('mousedown', onMouseDown.bind(this), false);
-                     node.removeEventListener('mouseout', onMouseOut, false);
+                 function onMouseUp() {
+                     overlay.removeEventListener('mousemove', onMouseMove.bind(this), false);
+                     overlay.removeEventListener('mouseup', onMouseUp, false);
+                     document.body.removeChild(overlay);
                  }
 
-                 node.addEventListener('mousedown', onMouseDown.bind(this), false);
-                 node.addEventListener('mouseout', onMouseOut, false);
+                 overlay.addEventListener('mousemove', onMouseMove.bind(this), false);
+                 overlay.addEventListener('mouseup', onMouseUp, false);
              }
 
-             node.addEventListener('mouseover', onMouseOver.bind(this), false);
+             node.addEventListener('mousedown', onMouseDown.bind(this), false);
 
              return {
                  destroy() {
-                     node.removeEventListener('mouseover', onMouseOver.bind(this), false);
+                     node.removeEventListener('mousedown', onMouseDown.bind(this), false);
                  }
              };
          },
@@ -93,6 +124,7 @@
                 height: ${height}px;`
      }
  }
+
 </script>
 
 <style>
