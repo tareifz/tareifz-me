@@ -1,4 +1,4 @@
-<div class="window" style={styles}>
+<div ref:thisWindow class="window" style={styles}>
     <div class="window-bar" on:windowMove="set({ })">
         <div class="window-bar-buttons">
             <div class="close">
@@ -51,8 +51,8 @@
                  let y0 = event.clientY;
 
                  let overlay = document.createElement('div');
-                 document.body.appendChild(overlay);
-                 overlay.style.opacity = 0.0;
+                 let workspace = this.refs.thisWindow.parentNode;
+                 overlay.style.opacity = '0.0';
                  overlay.style.height = '100%';
                  overlay.style.position = 'absolute';
                  overlay.style.width = '100%';
@@ -60,14 +60,15 @@
                  overlay.style.left = '0';
                  overlay.style.zIndex = '99999999';
 
+                 workspace.appendChild(overlay);
+
                  function onMouseMove(event) {
-                     // always move the window to the desired location
                      let dx = event.clientX - x0;
                      let dy = event.clientY - y0;
                      let {
-                         innerWidth,
-                         innerHeight,
-                     } = window;
+                         clientWidth: workspaceWidth,
+                         clientHeight: workspaceHeight,
+                     } = workspace;
                      let {
                          top,
                          left,
@@ -80,12 +81,15 @@
                      x0 += dx;
                      y0 += dy;
 
-                     /* if(left >= innerWidth) {
-                      *     console.log('left before: ', left)
-                      *     left = innerWidth - width;
-                      *     x0 = innerWidth;
-                      *     console.log('left after: ', left)
-                      * } */
+                     if( (left + width) >= workspaceWidth)
+                         left = workspaceWidth - width;
+                     else if(left < 0)
+                         left = 0;
+
+                     if( (top + height) >= workspaceHeight)
+                         top = workspaceHeight - height;
+                     else if(top < 0)
+                         top = 0;
 
                      this.set({
                          top,
@@ -96,7 +100,7 @@
                  function onMouseUp() {
                      overlay.removeEventListener('mousemove', onMouseMove.bind(this), false);
                      overlay.removeEventListener('mouseup', onMouseUp, false);
-                     document.body.removeChild(overlay);
+                     workspace.removeChild(overlay);
                  }
 
                  overlay.addEventListener('mousemove', onMouseMove.bind(this), false);
@@ -143,7 +147,7 @@
  .window-bar-buttons {
      display: flex;
      align-items: center;
-     z-index: 999;
+     z-index: 1;
  }
  .window-bar-title {
      width: 100%;
