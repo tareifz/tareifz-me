@@ -36,6 +36,7 @@
              left: 0,
              width: 400,
              height: 300,
+             zIndex: 1,
              title: 'about',
              close: true,
              minimize: true,
@@ -47,6 +48,8 @@
      events: {
          windowMove(node, callback) {
              function onMouseDown(event) {
+                 this.fire('activate', { node: this });
+
                  let x0 = event.clientX;
                  let y0 = event.clientY;
 
@@ -122,10 +125,12 @@
              left,
              width,
              height,
+             zIndex,
          }) =>  `top: ${top}px;
                 left: ${left}px;
                 width: ${width}px;
-                height: ${height}px;`
+                height: ${height}px;
+                z-index: ${zIndex};`
      }
  }
 

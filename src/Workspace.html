@@ -4,10 +4,12 @@
             bind:left=window.left
             bind:width=window.width
             bind:height=window.height
+            bind:zIndex=window.zIndex
             bind:title=window.title
             bind:close=window.close
             bind:minimize=window.minimize
-            bind:maximize=window.maximize></Window>
+            bind:maximize=window.maximize
+            on:activate="activate(event.node)"></Window>
     {/each}
 </div>
 
@@ -25,6 +27,7 @@
                      left: 0,
                      width: 400,
                      height: 300,
+                     zIndex: 1,
                      title: 'about',
                      close: true,
                      minimize: true,
@@ -35,6 +38,23 @@
              ],
          };
      },
+     methods: {
+         activate(node) {
+             let {
+                 windows,
+             } = this.get();
+
+             windows.forEach(window => {
+                 window.zIndex = 1;
+             });
+
+             this.set({ windows });
+             node.set({
+                 zIndex: 2,
+             });
+
+         },
+     },
  }
 </script>
 
@@ -44,4 +64,4 @@
      height: 100%;
      position: relative;
  }
-</style>
+ </style>
