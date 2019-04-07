@@ -1,70 +1,34 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# tareifz-me
 
----
+This README outlines the details of collaborating on this Glimmer application.
+A short introduction of this app could easily go here.
 
-# svelte app
+## Prerequisites
 
-This is a project template for [Svelte](https://svelte.technology) apps. It lives at https://github.com/sveltejs/template.
+You will need the following things properly installed on your computer.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/) (with NPM)
+* [Yarn](https://yarnpkg.com/en/)
+* [Ember CLI](https://ember-cli.com/)
 
-```bash
-npm install -g degit # you only need to do this once
+## Installation
 
-degit sveltejs/template svelte-app
-cd svelte-app
-```
+* `git clone <repository-url>` this repository
+* `cd tareifz-me`
+* `yarn`
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+## Running / Development
 
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
-## Get started
+### Building
 
-Install the dependencies...
+* `ember build` (development)
+* `ember build --environment production` (production)
 
-```bash
-cd svelte-app
-npm install
-```
+## Further Reading / Useful Links
 
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+* [glimmerjs](http://github.com/tildeio/glimmer/)
+* [ember-cli](https://ember-cli.com/)
